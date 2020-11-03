@@ -1,0 +1,4 @@
+wordpress:
+  hosts:
+    worker-node1:
+   # worker-node2:

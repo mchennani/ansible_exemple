@@ -1,0 +1,10 @@
+---
+- name: Module YUM 
+  hosts: worker-node1 
+  tasks:
+  - name: installation NGINX 
+    yum:   
+      name: nginx
+      update_cache: yes
+      state: latest
+

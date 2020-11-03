@@ -1,0 +1,20 @@
+---
+- name: SSH Key et User 
+  hosts: worker-node1
+  gather_facts: false 
+  #remote_user: root
+  tasks:
+  - name: generate SSH_key
+    openssh_keypair:
+      path: /tmp/ansible
+      type: rsa
+      size: 4096
+      state: present
+      force: no
+    delegate_to: localhost
+    run_once: yes
+    #register: res
+
+    #- debug: var=res
+     
+

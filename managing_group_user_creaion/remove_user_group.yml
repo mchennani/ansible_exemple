@@ -1,0 +1,26 @@
+---
+- hosts: linuxservers
+  remote_user: root
+  become: yes
+  become_method: sudo
+  gather_facts: no
+  connection: ssh
+  tasks:
+    - name: Remove users
+      user:
+        name={{item}} state=absent remove=yes
+      with_items:
+        - bobin 
+        - sysadmin 
+        - lonston
+        - guest100
+        - guest001
+
+    - name: Remove groups
+      group:
+        name={{item}} state=absent
+      with_items:
+        - nixadmins 
+        - office 
+        - warehouse
+     

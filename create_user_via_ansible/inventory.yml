@@ -1,0 +1,10 @@
+all:
+  children:
+    common:
+      children:
+        webserver:
+          hosts:
+            worker-node[1:2]:
+        dbserver:
+          hosts:
+            master-node:

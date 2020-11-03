@@ -1,0 +1,10 @@
+---
+- name: suppression du user
+  hosts: all
+  tasks:
+  - name: suppression du user mchennani 
+    user: 
+      name: mchennani
+      state: absent
+      remove: yes
+

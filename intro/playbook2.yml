@@ -1,0 +1,9 @@
+---
+- name: "[TEMPLATE]"
+  hosts: all
+  tasks: 
+    - name: "[TEMPLATE] - create directory"
+      file: 
+        path: /tmp/myapp
+        state: directory
+        mode: 0755

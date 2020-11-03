@@ -1,0 +1,43 @@
+---
+- name: "[TEMPLATE ]"
+  hosts: all
+  vars:
+    myapp_conf: 
+      - "buffer = True" 
+      - "memory = 90mb"
+      - "memory = 90mb"
+
+      - check5: "3fb965f7aedca41899e67f710185c4d4"
+  tasks: 
+    - name: "[TEMPLATE ] check md5" 
+      stat: 
+        path: /tmp/myapp/myappconf.cfg
+        get_checksum: yes
+        checksum_algorithm: md5
+      register : sum5
+
+    - set_fact: 
+        data: "0"
+      when: sum5.stat.checksum is not defined
+      
+    - set_fact:   
+        data: "{{ sum5.stat.checksum }}"
+      when: sum5.stat.checksum is defined 
+
+    - name : "[TEMPLATE ] bloc"
+      block:
+      - name: "[TEMPLATE ] - create directory"
+        file:
+          path: /tmp/myapp/ 
+          state: directory
+          owner: chennani 
+          mode: 0755
+
+      - name: "[TEMPLATE ] - create template" 
+        template:
+          src: ./template/myappconf.cfg.j2
+          dest: /tmp/myapp/myappconf.cfg
+          mode: 0755
+
+          #when: data != check5
+

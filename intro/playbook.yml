@@ -1,0 +1,26 @@
+---
+- name: "[FICHIER ]"
+  hosts: all
+  tasks: 
+    - name: "[FICHIERS ] - copie du fichier"
+      copy:
+        src: ./test.txt
+        dest: /tmp/test_ansible.txt
+    - name: "[FICHIERS ] - Add une ligne dans le fichier test_ansible.txt"
+      lineinfile:
+        path: /tmp/test_ansible.txt
+        line: 'Ligne ajoutee par ansible'
+
+    - name: "[FICHIER ] - Change Mohamed par Momo"
+      lineinfile:
+        path: /tmp/test_ansible.txt
+        regexp: '(.*)Mohamed(.*)'
+        line: '\1Momo\2'
+        backrefs: yes
+
+    - name: "[FICHIER ] - Ajout une ligne avant Momo"
+      lineinfile:
+        path: /tmp/test_ansible.txt
+        insertbefore: '(.*)Momo(.*)'
+        line: "mon nom de famille est CHENNANI"
+

@@ -1,0 +1,16 @@
+---
+- name: With Item et Boucles 
+  hosts: all
+  vars:
+    fichiers:
+      - { dir: "mche1", file: "fichier1"}
+      - { dir: "mche2", file: "fichier2"}
+      - { dir: "mche3", file: "fichier3"}
+      - { dir: "mche4", file: "fichier4"}
+  tasks:
+  - name: creation des fichiers
+    file:
+      path: /tmp/mche/{{ item.dir }}/{{ item.file }}
+      state: touch
+    with_items:
+    - "{{ fichiers }}"

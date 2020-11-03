@@ -1,0 +1,9 @@
+---
+- name: Module YUM 
+  hosts: worker-node1 
+  tasks:
+  - name: suppression NGINX 
+    yum:   
+      name: nginx
+      state: absent
+

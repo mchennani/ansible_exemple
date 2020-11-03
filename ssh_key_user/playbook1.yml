@@ -1,0 +1,27 @@
+---
+- name: creation du user deops + ajout les droits sudo + copie la cle ssh regeneree 
+  hosts: all
+  tasks:
+  - name: 1- Creation du user devops 
+    user: 
+      name: devops
+      shell: /bin/bash
+      group: sudo
+      append: yes
+      password: "{{ 'password' | password_hash('sha512') }}"
+    become: yes
+
+  - name: 2- Ajout user deops --> sudoers
+    copy:
+      dest: "/etc/sudoers.d/devops"
+      content: "devops ALL=(ALL) NOPASSWD: ALL"
+    become: yes
+
+  - name: 3- Deploy cle SSH 
+    authorized_key:
+      user: devops
+      key: "{{ lookup('file', '/tmp/ansible.pub') }}"
+      state: present
+    become: yes
+
+

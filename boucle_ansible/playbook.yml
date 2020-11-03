@@ -1,0 +1,24 @@
+---
+- name: With Item et Boucles 
+  hosts: all
+  tasks:
+  - name: boucle creation de repertoire 
+    file:
+      path: /tmp/mche/{{ item }}
+      state: directory
+      recurse: yes
+    with_items:
+    - mche1
+    - mche2
+    - mche3
+    - mche4
+
+  - name: creation des fichiers
+    file:
+      path: /tmp/mche/{{ item.dir }}/{{ item.file }}
+      state: touch
+    with_items:
+    - { dir: "mche1", file: "fichierA"}
+    - { dir: "mche2", file: "fichierB"}
+    - { dir: "mche3", file: "fichierC"}
+    - { dir: "mche4", file: "fichierD"}

@@ -1,0 +1,45 @@
+---
+- name: je debute avec ansible
+  hosts: all
+  tasks:
+  - name: je teste ma connexion
+    ping:
+  - name: creation du reprtoire /tmp/mch
+    file:
+     path: /tmp/mch
+     state: directory
+  - name: changement de user --> chennani
+    file:
+      path: /tmp/mch
+      state: directory
+      owner: chennani
+      group: chennani
+      mode: 0755
+    become: yes
+  - name: creation des rep[1-3] dsns /tmp/mch
+    file: 
+      path: /tmp/mch/rep1/rep2/rep3
+      recurse: yes
+      state: directory
+      owner: chennani
+      group: chennani
+      mode: 0755
+  - name: creation fichier.txt --> /tmp/mch/rep1/rep2/rep3/
+    file:
+      path: /tmp/mch/rep1/rep2/rep3/fichier.txt
+      state: touch
+      owner: chennani
+      group: chennani
+      mode: 0777
+  - name: creation lien symbolique  
+    file:
+      src: /tmp/mch/rep1/rep2/rep3
+      dest: /tmp/symlink
+      state: link #hard
+      owner: root
+      group: root
+      mode: 0755
+  - name: supression de fichier --> fichier.txt  
+    file:
+      path: /tmp/mch/rep1/rep2/rep3/fichier.txt
+      state: absent
